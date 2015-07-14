@@ -1,0 +1,241 @@
+package gmit;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class TestRunner {
+
+	// virtual representation of cipher square
+	private static Map<Character, String> cipherSquareEncrypt = new HashMap<Character, String>();
+	
+	private static Map<String, Character> cipherSquareDecrypt = new HashMap<String, Character>();
+	// holds ciphertext text
+
+	public static void main(String[] args) throws IOException {
+		
+		ArrayList<Character> cipherText = new ArrayList<Character>();
+
+		cipherSquare();
+		deCipherSquare();
+		
+		File file = new File("WarAndPeace-LeoTolstoy.txt");
+				
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+
+		String textInput = null;
+		
+		while ((textInput = br.readLine()) != null) {
+
+			String[] words = textInput.split(" ");
+
+			for (int i = 0; i < words.length; i++) {
+				String word = words[i];
+
+				for (int j = 0; j < word.length(); j++) {
+					
+					char letter = word.charAt(j);
+										
+					Character uppercaseLetter = Character.toUpperCase(letter);
+					
+					String cipherCode = cipherSquareEncrypt.get(uppercaseLetter);
+					cipherText.add(cipherCode.charAt(0)); // V
+					cipherText.add(cipherCode.charAt(1)); // X
+				}
+
+			}
+		}
+		br.close();
+		
+		PrintWriter cipherTextFile = new PrintWriter("ciphertext");
+		
+		StringBuilder builder = new StringBuilder();
+		for (Character value : cipherText) {
+		    builder.append(value);
+		}
+		
+		String text = builder.toString();
+		
+		cipherTextFile.print(text);
+       
+		cipherTextFile.close();
+		
+		System.out.println("done encrytion");
+		
+		File cipherTextInputFile = new File("ciphertext");
+		
+		BufferedReader brIn = new BufferedReader(new InputStreamReader(new FileInputStream(cipherTextInputFile)));
+		
+		ArrayList<Character> cipherTextInput = new ArrayList<Character>();
+		
+		String textInput2 = null;
+				
+		while ((textInput2 = brIn.readLine()) != null) {
+
+				for (int j = 0; j < textInput2.length(); j++) {
+																								
+					char char1 = textInput2.charAt(j);
+					char char2 = textInput2.charAt(j++);
+					
+					String uppercaseLetters 
+
+					
+					System.out.println(uppercaseLetters);
+					
+					Character cipherCode2 = cipherSquareDecrypt.get(uppercaseLetters);
+										
+					cipherTextInput.add(cipherCode2);
+				
+
+			}
+				
+				System.out.println(cipherTextInput.get(cipherTextInput.size() -1));
+				
+		}
+		System.out.println("done reading in file and decypting");
+
+	}
+
+	public static void cipherSquare() {
+		cipherSquareEncrypt.put('P', "AA");
+		cipherSquareEncrypt.put('H', "AD");
+		cipherSquareEncrypt.put('0', "AF");
+		cipherSquareEncrypt.put('Q', "AG");
+		cipherSquareEncrypt.put('G', "AX");
+		cipherSquareEncrypt.put('6', "AV");
+		cipherSquareEncrypt.put('4', "DA");
+		cipherSquareEncrypt.put('M', "DD");
+		cipherSquareEncrypt.put('E', "DF");
+		cipherSquareEncrypt.put('A', "DG");
+		cipherSquareEncrypt.put('1', "DX");
+		cipherSquareEncrypt.put('Y', "DV");
+		cipherSquareEncrypt.put('L', "FA");
+		cipherSquareEncrypt.put('2', "FD");
+		cipherSquareEncrypt.put('N', "FF");
+		cipherSquareEncrypt.put('O', "FG");
+		cipherSquareEncrypt.put('F', "FX");
+		cipherSquareEncrypt.put('D', "FV");
+		cipherSquareEncrypt.put('X', "GA");
+		cipherSquareEncrypt.put('K', "GD");
+		cipherSquareEncrypt.put('R', "GF");
+		cipherSquareEncrypt.put('3', "GG");
+		cipherSquareEncrypt.put('C', "GX");
+		cipherSquareEncrypt.put('V', "GV");
+		cipherSquareEncrypt.put('S', "XA");
+		cipherSquareEncrypt.put('5', "XD");
+		cipherSquareEncrypt.put('Z', "XF");
+		cipherSquareEncrypt.put('W', "XG");
+		cipherSquareEncrypt.put('7', "XX");
+		cipherSquareEncrypt.put('B', "XV");
+		cipherSquareEncrypt.put('J', "VA");
+		cipherSquareEncrypt.put('9', "VD");
+		cipherSquareEncrypt.put('U', "VF");
+		cipherSquareEncrypt.put('T', "VG");
+		cipherSquareEncrypt.put('I', "VX");
+		cipherSquareEncrypt.put('8', "VV");
+		cipherSquareEncrypt.put('-', "YA");
+        cipherSquareEncrypt.put('.', "YD");
+        cipherSquareEncrypt.put('(', "YF");
+        cipherSquareEncrypt.put(')', "YG");
+        cipherSquareEncrypt.put(',', "YX");
+        cipherSquareEncrypt.put('?', "YV");
+        cipherSquareEncrypt.put('!', "YY");
+        cipherSquareEncrypt.put(';', "AY");
+        cipherSquareEncrypt.put(':', "DY");
+        cipherSquareEncrypt.put('_', "FY");
+        cipherSquareEncrypt.put('=', "XY");
+        cipherSquareEncrypt.put('*', "VY");
+        cipherSquareEncrypt.put('\"', "AZ"); 
+        cipherSquareEncrypt.put(' ', "DZ"); 
+        cipherSquareEncrypt.put('&', "FZ"); 
+        cipherSquareEncrypt.put('\'', "GZ");
+        cipherSquareEncrypt.put('|', "XZ"); 
+        cipherSquareEncrypt.put('~', "VZ");
+        cipherSquareEncrypt.put('/', "GY");
+        cipherSquareEncrypt.put('#', "YZ");
+        cipherSquareEncrypt.put('£', "ZA");
+        cipherSquareEncrypt.put('$', "ZF");
+        cipherSquareEncrypt.put('<', "ZG");
+        cipherSquareEncrypt.put('>', "ZX");
+        cipherSquareEncrypt.put('@', "ZF");
+        cipherSquareEncrypt.put('~', "ZY");
+        cipherSquareEncrypt.put('^', "ZZ");
+		
+	}
+	
+    public static void deCipherSquare() {
+        cipherSquareDecrypt.put("AA", 'P'); 
+        cipherSquareDecrypt.put("AD", 'H'); 
+        cipherSquareDecrypt.put("AF", '0');
+        cipherSquareDecrypt.put("AG", 'Q'); 
+        cipherSquareDecrypt.put("AV", '6'); 
+        cipherSquareDecrypt.put("AX", 'G'); 
+        cipherSquareDecrypt.put("DA", '4');
+        cipherSquareDecrypt.put("DD", 'M'); 
+        cipherSquareDecrypt.put("DF", 'E');
+        cipherSquareDecrypt.put("DG", 'A');
+        cipherSquareDecrypt.put("DV", 'Y'); 
+        cipherSquareDecrypt.put("DX", '1'); 
+        cipherSquareDecrypt.put("FA", 'L'); 
+        cipherSquareDecrypt.put("FD", '2'); 
+        cipherSquareDecrypt.put("FF", 'N'); 
+        cipherSquareDecrypt.put("FG", 'O'); 
+        cipherSquareDecrypt.put("FV", 'D'); 
+        cipherSquareDecrypt.put("FX", 'F'); 
+        cipherSquareDecrypt.put("GA", 'X'); 
+        cipherSquareDecrypt.put("GD", 'K'); 
+        cipherSquareDecrypt.put("GF", 'R'); 
+        cipherSquareDecrypt.put("GG", '3'); 
+        cipherSquareDecrypt.put("GV", 'V'); 
+        cipherSquareDecrypt.put("GX", 'C'); 
+        cipherSquareDecrypt.put("VA", 'J');
+        cipherSquareDecrypt.put("VD", '9');
+        cipherSquareDecrypt.put("VF", 'U');
+        cipherSquareDecrypt.put("VG", 'T');
+        cipherSquareDecrypt.put("VV", '8');
+        cipherSquareDecrypt.put("VX", 'I');
+        cipherSquareDecrypt.put("XA", 'S');
+        cipherSquareDecrypt.put("XD", '5');
+        cipherSquareDecrypt.put("XF", 'Z');
+        cipherSquareDecrypt.put("XG", 'W');
+        cipherSquareDecrypt.put("XV", 'B');
+        cipherSquareDecrypt.put("XX", '7');
+        cipherSquareDecrypt.put("YA", '-');
+        cipherSquareDecrypt.put("YD", '.');
+        cipherSquareDecrypt.put("YF", '(');
+        cipherSquareDecrypt.put("YG", ')');
+        cipherSquareDecrypt.put("YX", ',');
+        cipherSquareDecrypt.put("YV", '?');
+        cipherSquareDecrypt.put("YY", '!');
+        cipherSquareDecrypt.put("AY", ';');
+        cipherSquareDecrypt.put("DY", ':');
+        cipherSquareDecrypt.put("FY", '_');
+        cipherSquareDecrypt.put("GY", '/');
+        cipherSquareDecrypt.put("XY", '=');
+        cipherSquareDecrypt.put("VY", '*');
+        cipherSquareDecrypt.put("AZ", '"');
+        cipherSquareDecrypt.put("DZ", ' '); 
+        cipherSquareDecrypt.put("FZ", '&'); 
+        cipherSquareDecrypt.put("GZ", '\''); 
+        cipherSquareDecrypt.put("XZ", '|'); 
+        cipherSquareDecrypt.put("VZ", '~'); 
+        cipherSquareDecrypt.put("YZ", '#'); 
+        cipherSquareDecrypt.put("ZA", '£');
+        cipherSquareDecrypt.put("ZD", 'Û');
+        cipherSquareDecrypt.put("ZF", '$');
+        cipherSquareDecrypt.put("ZG", '<');
+        cipherSquareDecrypt.put("ZX", '>');
+        cipherSquareDecrypt.put("ZV", '@');
+        cipherSquareDecrypt.put("ZY", '`');
+        cipherSquareDecrypt.put("ZZ", '^');
+
+    }
+
+}
